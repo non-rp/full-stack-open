@@ -2,6 +2,7 @@
 sequenceDiagram
     participant browser
     participant server
+    participant data.json
 
     browser-->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
@@ -11,10 +12,10 @@ sequenceDiagram
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/note_new
     activate server
-
-    Note left of browser: POST request with Form Data with text from input
-    Note left of server: Server adds new note to data.json
-
+    Note right of browser: POST request with Form Data with text from input
+    
+    server-->>data.json: Write new line from request body to to data.json
+    data.json-->>server: Response
     server-->>browser: 302 redirect to https://studies.cs.helsinki.fi/exampleapp/notes
     deactivate server
     Note left of server: Return redirect from new_note to notes, rerender notes page
