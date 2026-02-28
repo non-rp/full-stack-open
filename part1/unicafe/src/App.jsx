@@ -10,11 +10,20 @@ const HandleClick = (value, setValue) => {
   setValue(value + 1)
 }
 
+const StatElement = ({ text, value }) => (
+  <p>{text}: {value}</p>
+)
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const total = good + neutral + bad
+  const average = total === 0 ? 0 :  total / 3
+  const positive = total === 0 ? 0 : good / total * 100
+
+  console.log(good, neutral, bad)
 
   return (
     <div>
@@ -26,9 +35,13 @@ const App = () => {
 
       <Heading text="statistics" />
 
-      <p>good: {good}</p>
-      <p>neutral: {neutral}</p>
-      <p>bad: {bad}</p>
+      <StatElement text="good" value={good} />
+      <StatElement text="neutral" value={neutral} />
+      <StatElement text="bad" value={bad} />
+      <StatElement text="all" value={good + neutral + bad} />
+
+      <StatElement text="average" value={average} />
+      <StatElement text="positive" value={positive + '%'} />
     </div>
   )
 }
