@@ -1,8 +1,6 @@
 import { useState } from 'react'
 
-const Heading = ({ tag: Tag = 'h2', text }) => {
-  return <Tag>{text}</Tag>;
-}
+const Heading = ({ tag: Tag = 'h2', text }) => <Tag>{text}</Tag>;
 
 const Button = ({ handleClick, text }) => <button onClick={handleClick}>{text}</button>
 
