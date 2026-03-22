@@ -1,9 +1,11 @@
+import { useState } from "react"
 
 const Header = ({ text }) => {
   return <h1>{text}</h1>
 }
 
 const Part = ({ part }) => {
+
   return (
     <p>
       {part.name} {part.exercises}
@@ -11,11 +13,23 @@ const Part = ({ part }) => {
   )
 }
 
+const Total = ({total}) => {
+  return (
+    <div>
+      <p><b>Number of exercises {total}</b></p>
+    </div>
+  )
+}
+
 const Course = ({ course }) => {
+  const {id, name, parts} = course
+  const total = parts.reduce((sum, current) => sum + current.exercises, 0 )
+
   return (
     <div> 
-      <Header text={ course.name } />
-      {course.parts && course.parts.map((part) => <Part key={part.id} part={part}/>)  }
+      <Header text={ name } />
+      {parts && parts.map((part) => <Part key={part.id} part={part} />)}
+      <Total total={total} /> 
     </div>
   )
 }
@@ -42,8 +56,8 @@ const App = () => {
       },
       {
         name: 'State of a component',
-        exercises: 14,
-        id: 3
+        exercises: 24,
+        id: 4
       },
     ]
   }
