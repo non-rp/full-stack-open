@@ -1,9 +1,9 @@
 
-const Header = (props) => {
-  return <h1>{props.name}</h1>
+const Header = ({ text }) => {
+  return <h1>{text}</h1>
 }
 
-const Part = ({part}) => {
+const Part = ({ part }) => {
   return (
     <p>
       {part.name} {part.exercises}
@@ -14,7 +14,7 @@ const Part = ({part}) => {
 const Course = ({ course }) => {
   return (
     <div> 
-      <Header course={course.name} />
+      <Header text={ course.name } />
       {course.parts && course.parts.map((part) => <Part key={part.id} part={part}/>)  }
     </div>
   )
@@ -39,7 +39,12 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3
-      }
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+        id: 3
+      },
     ]
   }
 
