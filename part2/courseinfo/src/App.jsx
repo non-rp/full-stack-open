@@ -1,39 +1,5 @@
-import { useState } from "react"
-
-const Header = ({ text, tag }) => {
-  const Tag = tag
-  return <Tag>{text}</Tag>
-}
-
-const Part = ({ part }) => {
-
-  return (
-    <p>
-      {part.name} {part.exercises}
-    </p>
-  )
-}
-
-const Total = ({total}) => {
-  return (
-    <div>
-      <p><b>Number of exercises {total}</b></p>
-    </div>
-  )
-}
-
-const Course = ({ course }) => {
-  const {id, name, parts} = course
-  const total = parts.reduce((sum, current) => sum + current.exercises, 0 )
-
-  return (
-    <div> 
-      <Header text={ name } tag="h2" />
-      {parts && parts.map((part) => <Part key={part.id} part={part} />)}
-      <Total total={total} /> 
-    </div>
-  )
-}
+import Course from './components/Course'
+import Header from './components/Header'
 
 const App = () => {
 const courses = [
