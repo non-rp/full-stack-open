@@ -3,15 +3,20 @@ import Person from './components/Person'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { 
+      name: 'Arto Hellas',
+      number: '040-123456'
+    }
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
     
     const updName = {
-      name: newName
+      name: newName,
+      number: newNumber
     }
 
     if(persons.some(p => p.name === newName)) {
@@ -22,12 +27,16 @@ const App = () => {
 
     setPersons(persons.concat(updName))
     setNewName('')
+    setNewNumber('')
   }
 
-  const handleInput = (event) => {
+  const handleNameInput = (event) => {
     setNewName(event.target.value)
   }
 
+  const handleNumberInput = (event) => {
+    setNewNumber(event.target.value)
+  }
 
   return (
     <div>
@@ -35,7 +44,10 @@ const App = () => {
 
       <form onSubmit={handleSubmit}>
         <div>
-          name: <input type="text" value={newName} onChange={handleInput} />
+          name: <input type="text" value={newName} onChange={handleNameInput} />
+        </div>
+        <div>
+          number: <input type="text" value={newNumber} onChange={handleNumberInput} />
         </div>
         <div>
           <button type="submit">add</button>
@@ -43,7 +55,7 @@ const App = () => {
       </form>
 
       <h2>Numbers</h2>
-      {persons && persons.map((person) => <Person key={person.name} name={person.name} /> )}
+      {persons && persons.map((person) => <Person key={person.name} person={person} /> )}
     </div>
   )
 }
