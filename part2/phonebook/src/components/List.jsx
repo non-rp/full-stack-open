@@ -2,10 +2,12 @@ import Person from './Person'
 
 const List = ({items}) => {
  return (
-    <div>
-        {items  && items.map((item) => <Person key={item.name} person={item} /> )}
-    </div>
-    
+    <>
+        <h2>Numbers</h2>
+        <div>
+            {items  && items.map((item) => <Person key={item.name} person={item} /> )}
+        </div>
+    </>
  )
 }
 
