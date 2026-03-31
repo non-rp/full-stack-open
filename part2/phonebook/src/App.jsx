@@ -36,9 +36,16 @@ const App = () => {
       return
     }
 
-    setPersons(persons.concat(updName))
-    setNewName('')
-    setNewNumber('')
+    // setPersons(persons.concat(updName))
+
+    axios
+      .post('http://localhost:3001/persons', updName)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+          setNewName('')
+          setNewNumber('')
+        console.log(response)
+      })
   }
 
   const handleNameInput = (event) => {
@@ -59,9 +66,7 @@ const App = () => {
   return (
     <div>
       <Search handleSearch={handleSearch} />
-      <Form values={{newName, newNumber}} handlers={{handleSubmit, handleNameInput, handleNumberInput}} />
-
-      
+      <Form values={{newName, newNumber}} handlers={{handleSubmit, handleNameInput, handleNumberInput}} />     
       {<List items={filtered} />}
     </div>
   )
