@@ -1,18 +1,15 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import List from './components/List'
 import Search from './components/Search'
 import Form from './components/Form'
+import personsService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        if(response.status === 200) return response.data
-      })
+    personsService
+      .getAll()
       .then( data => { setPersons(data) })
       .catch(error => console.log(error))
 
@@ -36,15 +33,12 @@ const App = () => {
       return
     }
 
-    // setPersons(persons.concat(updName))
-
-    axios
-      .post('http://localhost:3001/persons', updName)
+    personsService
+      .create(updName)
       .then(response => {
         setPersons(persons.concat(response.data))
-          setNewName('')
-          setNewNumber('')
-        console.log(response)
+        setNewName('')
+        setNewNumber('')
       })
   }
 
@@ -60,7 +54,7 @@ const App = () => {
     const value = event.target.value.toLowerCase()
     setSearch(value)
   }
-
+  
   const filtered = persons.filter((person) => person.name.toLowerCase().includes(search.toLowerCase()))
 
   return (
