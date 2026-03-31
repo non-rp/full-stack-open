@@ -54,6 +54,18 @@ const App = () => {
     const value = event.target.value.toLowerCase()
     setSearch(value)
   }
+
+  const handleDelete = (id, name) => {
+    const validate = window.confirm(`Are you sure you want to delete ${name}`)
+
+    if(!validate) return 
+
+    personsService
+      .deleteRow(id)
+      .then((data) =>  {
+        setPersons(prev => prev.filter(person => person.id != data.id))
+      })
+  }
   
   const filtered = persons.filter((person) => person.name.toLowerCase().includes(search.toLowerCase()))
 
@@ -61,7 +73,7 @@ const App = () => {
     <div>
       <Search handleSearch={handleSearch} />
       <Form values={{newName, newNumber}} handlers={{handleSubmit, handleNameInput, handleNumberInput}} />     
-      {<List items={filtered} />}
+      {<List items={filtered} handleDelete={handleDelete} />}
     </div>
   )
 }
