@@ -15,4 +15,9 @@ const deleteRow = id => {
     return response.then(response => response.data)
 }
 
-export default { getAll, create, deleteRow }
+const update = (id, object) => {
+    const response = axios.put(`${baseUrl}/${id}`, object)
+    return response.then(response => response.data)
+}
+
+export default { getAll, create, deleteRow, update }
