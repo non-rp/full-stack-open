@@ -97,6 +97,10 @@ const App = () => {
         setPersons(prev => prev.filter(person => person.id != data.id))
         handleNotification(`${data.name} deleted!`, 'success')
       })
+      .catch(error => {
+        handleNotification(`${name} was already deleted!`, 'error')
+        setPersons(prev => prev.filter(person => person.id != id))
+      })
   }
 
   const handleNotification = (message, status) => {
@@ -111,7 +115,7 @@ const App = () => {
         status: null
       });
       console.log(notification)
-    }, 5000)
+    }, 3000)
   }
   
   const filtered = persons.filter((person) => person.name.toLowerCase().includes(search.toLowerCase()))
