@@ -6,3 +6,10 @@ img {
 .countries__item {
     max-width: 600px;
 }
+
+
+.countries__list li {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+}

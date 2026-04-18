@@ -9,7 +9,9 @@ const getAll = () => {
 }
 
 const getByName = (name) => {
-
+    return axios
+        .get(`${apiBaseUrl}/name/${name}`)
+        .then(response => response.data)
 }
 
 export default {getAll, getByName}
