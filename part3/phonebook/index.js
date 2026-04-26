@@ -1,6 +1,7 @@
 import express from 'express';
 
 const app = express();
+app.use(express.json())
 
 let persons = [
     { 
@@ -50,6 +51,22 @@ app.delete('/api/persons/:id', (req, res) => {
   persons = persons.filter(p => p.id !== id)
 
   res.status(204).end()
+})
+
+app.post('/api/persons', (req, res) => {
+  if(!req.body) return res.status(400).json({ error: 'Person missing'})
+
+  const {name, number} = req.body
+
+  const newPerson = {
+    'id': Math.floor(Math.random() * 2048),
+    "name": name, 
+    "number": number
+  }
+
+  persons.push(newPerson)
+
+  res.json(newPerson)
 })
 
 app.listen(3001, () => {
