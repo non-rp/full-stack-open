@@ -37,8 +37,9 @@ app.get('/info', (req, res) => {
 })
 
 app.get('/api/persons/:id', (req, res) => {
+  
+  const person = persons.find(p => p.id === Number(req.params.id))
 
-  const person = persons.find(p => p.id === req.params.id)
   if(!person) {
     return res.status(404).json({ error: 'Missing id' })
   }
@@ -58,15 +59,15 @@ app.post('/api/persons', (req, res) => {
 
   const {name, number} = req.body
 
-  if(!name || !number ) res.status(400).json({error: 'No valid data!'})
+  if(!name || !number ) return res.status(400).json({error: 'No valid data!'})
 
   const exists = persons.some(p => p.name === name)
-  if(exists) res.status(400).json({ error: 'Name must be unique' })
+  if(exists) return res.status(400).json({ error: 'Name must be unique' })
 
   const newPerson = {
     'id': Math.floor(Math.random() * 2048),
-    "name": name, 
-    "number": number
+    name, 
+    number
   }
 
   persons.push(newPerson)
