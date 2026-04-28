@@ -1,7 +1,9 @@
 import express from 'express';
+import morgan from 'morgan'
 
 const app = express();
 app.use(express.json())
+app.use(morgan('tiny'))
 
 let persons = [
     { 
@@ -75,6 +77,7 @@ app.post('/api/persons', (req, res) => {
   res.json(newPerson)
 })
 
-app.listen(3001, () => {
-    console.log("Server running on port 3001")
+const PORT = 3001
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}/`)
 })
