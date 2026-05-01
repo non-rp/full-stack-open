@@ -93,9 +93,9 @@ const App = () => {
 
     personsService
       .deleteRow(id)
-      .then((data) =>  {
-        setPersons(prev => prev.filter(person => person.id != data.id))
-        handleNotification(`${data.name} deleted!`, 'success')
+      .then(() =>  {
+        setPersons(prev => prev.filter(person => person.id != id))
+        handleNotification(`${name} deleted!`, 'success')
       })
       .catch(error => {
         handleNotification(`${name} was already deleted!`, 'error')
