@@ -1,9 +1,8 @@
 import mongoose from 'mongoose'
 import 'dotenv/config'
 
-if (process.argv.length < 4) {
-  console.log('give all arguments')
-  console.log(process.argv)
+if (!process.argv[2]) {
+  console.log('give a password')
   process.exit(1)
 }
 
@@ -30,12 +29,18 @@ const person = new Person({
     number
 })
 
-person.save().then(result => {
-  console.log('Persone saved!')
-  return Person.find({})
-}).then(result => {
-  result.forEach(person => {
-    console.log(person)
-  })
-  mongoose.connection.close()
-})
+if(name && process.argv.length === 5) {
+    person.save().then(result => {
+        console.log(`added ${name} number ${number} to phonebook!`)
+        mongoose.connection.close()
+    })      
+}
+
+if(process.argv.length === 3) {
+    Person.find({}).then(result => {
+        result.forEach(person => {
+            console.log(`${person.name} ${person.number}`)
+            mongoose.connection.close()
+        })
+    })
+}
