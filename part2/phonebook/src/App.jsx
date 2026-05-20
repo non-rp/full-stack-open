@@ -118,7 +118,7 @@ const App = () => {
     }, 3000)
   }
   
-  const filtered = persons.filter((person) => person.name.toLowerCase().includes(search.toLowerCase()))
+  const filtered = persons.filter((person) => person.name?.toLowerCase().includes(search.toLowerCase()))
 
   return (
     <div>
