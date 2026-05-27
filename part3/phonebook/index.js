@@ -18,9 +18,11 @@ app.get('/api/persons', (req, res) => {
 })
 
 app.get('/info', (req, res) => {
-  const info = `Phonebook has info for ${persons.length} people </br> ${new Date().toString()}`
+  Person.countDocuments({}).then(count => {
+    const info = `Phonebook has info for ${count} people </br> ${new Date().toString()}`
 
-  res.send(info)
+    res.send(info)
+  })
 })
 
 app.get('/api/persons/:id', (req, res) => {
@@ -48,16 +50,26 @@ app.post('/api/persons', (req, res) => {
 
   if(!name || !number ) return res.status(400).json({error: 'No valid data!'})
 
-  const exists = persons.some(p => p.name === name)
-  if(exists) return res.status(400).json({ error: 'Name must be unique' })
-
   const person = new Person({
-    name,     
+    name,
     number
   })
 
   person.save().then(result => {
     res.json(result)
+  })
+})
+
+app.put('/api/persons/:id', (req, res) => {
+  const { name, number } = req.body
+
+  const person = {
+    name,
+    number
+  }
+
+  Person.findByIdAndUpdate(req.params.id, person, { new: true }).then(updatedPerson => {
+    res.json(updatedPerson)
   })
 })
 
