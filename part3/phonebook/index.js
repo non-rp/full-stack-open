@@ -91,7 +91,7 @@ const unknownEndpoint = (request, response) => {
 }
 app.use(unknownEndpoint)
 
-errorHandler = (error, request, response, next) => {
+let errorHandler = (error, request, response, next) => {
   console.log(error.message)
 
   if(error.name === 'CastError') {
